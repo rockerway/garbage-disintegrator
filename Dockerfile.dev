@@ -1,0 +1,8 @@
+FROM node:alpine
+
+WORKDIR /app
+COPY ./src/package.json /app
+RUN npm install
+COPY ./src /app
+
+ENTRYPOINT [ "sh" ]
