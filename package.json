@@ -2,7 +2,6 @@
   "name": "garbage-disintegrator",
   "version": "1.0.0",
   "description": "scan text file or string with Regex, generate a file without repeated regex's string.",
-  "main": "src/index.js",
   "bin": {
     "rrs": "../bin/remove-repeated-string"
   },
@@ -18,7 +17,9 @@
     "url": "https://github.com/rockerway/garbage-disintegrator/issues"
   },
   "homepage": "https://github.com/rockerway/garbage-disintegrator#readme",
-  "dependencies": {},
+  "dependencies": {
+    "commander": "^2.9.0"
+  },
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
