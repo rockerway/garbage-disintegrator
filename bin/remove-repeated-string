@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+const pkg = require('../package');
+const { error } = require('../lib/logger');
+const { readFile } = require('../lib/file');
+
+const VERSION = pkg.version;
+const COMMAND_NAME = 'rr';
+
+process.argv[1] = COMMAND_NAME;
+program
+  .version(VERSION, '-v, --version')
+  .usage('<regexp> [content] [options]')
+  .option('-f --file <path>', 'Source from file path')
+  .option('--stdin', 'Source from standard input')
+  .option('-o --out <path>', 'Output to a file')
+  .action(async (regexp, content) => {
+    if (process.argv.length < 3) {
+      program.help();
+      process.exit();
+    }
+
+    if (typeof regexp !== 'string') {
+      error('error: not entry regexp');
+      process.exit(1);
+    }
+
+    let text = content;
+
+    if (program.stdin) {
+      text = await getStdin();
+    } else if (program.file) {
+      text = readFile(program.file);
+    }
+
+    if (typeof text !== 'string') {
+      error(
+        "error: not entry content and unused options '--stdin', '-f --file <path>'"
+      );
+      process.exit(1);
+    }
+
+    console.log(regexp);
+    console.log(text);
+  })
+  .parse(process.argv);
+
+function getStdin() {
+  return new Promise(resolve => {
+    let stdin = '';
+
+    process.stdin.on('readable', () => {
+      const chunk = process.stdin.read();
+      if (chunk !== null) {
+        stdin += chunk;
+      }
+    });
+    process.stdin.on('end', () => {
+      stdin = stdin
+        .split('\n')
+        .slice(0, -1)
+        .join('\n');
+      resolve(stdin);
+    });
+  });
+}
