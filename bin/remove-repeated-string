@@ -2,8 +2,9 @@
 
 const program = require('commander');
 const pkg = require('../package');
-const { error } = require('../lib/logger');
-const { readFile } = require('../lib/file');
+const logger = require('../lib/utils/logger');
+const { readFile, writeFile } = require('../lib/utils/file');
+const scan = require('../lib/scan');
 
 const VERSION = pkg.version;
 const COMMAND_NAME = 'rr';
@@ -15,6 +16,16 @@ program
   .option('-f --file <path>', 'Source from file path')
   .option('--stdin', 'Source from standard input')
   .option('-o --out <path>', 'Output to a file')
+  .option('-r --repeated', 'Allow duplicate content')
+  .option(
+    '-c --conjunction <conjunction>',
+    'Use to connect words, phrases, or clauses'
+  )
+  // Todo: Consider whether it is open
+  // .option(
+  //   '--regexOption <options>',
+  //   'You can modify these and several other aspects of default regular expression behavior by specifying regular expression options.'
+  // )
   .action(async (regexp, content) => {
     if (process.argv.length < 3) {
       program.help();
@@ -22,29 +33,48 @@ program
     }
 
     if (typeof regexp !== 'string') {
-      error('error: not entry regexp');
+      logger.error('error: not entry regexp');
       process.exit(1);
     }
 
-    let text = content;
-
-    if (program.stdin) {
-      text = await getStdin();
-    } else if (program.file) {
-      text = readFile(program.file);
-    }
+    const text = await getText(content);
 
     if (typeof text !== 'string') {
-      error(
+      logger.error(
         "error: not entry content and unused options '--stdin', '-f --file <path>'"
       );
       process.exit(1);
     }
 
-    console.log(regexp);
-    console.log(text);
+    let targets;
+    if (program.repeated) {
+      targets = scan.getTargets(text, new RegExp(regexp, 'g'));
+    } else {
+      targets = scan.getNonRepeatedTargets(text, new RegExp(regexp, 'm'));
+    }
+
+    program.conjunction = program.conjunction || '';
+    const result = targets.join(program.conjunction);
+
+    if (program.out) {
+      writeFile(program.out, result);
+    } else {
+      console.log(result);
+    }
   })
   .parse(process.argv);
+
+async function getText(content) {
+  let text = content;
+
+  if (program.stdin) {
+    text = await getStdin();
+  } else if (program.file) {
+    text = readFile(program.file);
+  }
+
+  return text;
+}
 
 function getStdin() {
   return new Promise(resolve => {

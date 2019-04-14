@@ -1,14 +1,15 @@
 {
   "name": "garbage-disintegrator",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "scan text file or string with Regex, generate a file without repeated regex's string.",
   "bin": {
-    "rrs": "../bin/remove-repeated-string"
+    "rr": "bin/remove-repeated-string"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf lib && tsc src/**/* --outDir lib",
-    "lint": "eslint bin/remove-repeated-string src/**/*"
+    "build": "rm -rf lib && tsc src/*.ts src/**/* --outDir lib",
+    "lint": "eslint bin/remove-repeated-string src/**/*",
+    "generate": "./bin/remove-repeated-string \"(Given|When|Then)\\('[\\S ]*\\n {2}[\\S ]*\\n {2}[\\S ]*\\n}\\);\" -f /tmp/t -o ${PWD}/tt.js -c '\n\n'"
   },
   "repository": {
     "type": "git",
