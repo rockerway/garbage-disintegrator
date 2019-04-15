@@ -6,7 +6,8 @@
     "rr": "bin/remove-repeated-string"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "testWithCoverage": "jest --coverage",
     "build": "rm -rf lib && tsc src/*.ts src/**/* --outDir lib",
     "lint": "eslint bin/remove-repeated-string src/**/*",
     "generate": "./bin/remove-repeated-string \"(Given|When|Then)\\('[\\S ]*\\n {2}[\\S ]*\\n {2}[\\S ]*\\n}\\);\" -f /tmp/t -o ${PWD}/tt.js -c '\n\n'"
@@ -25,6 +26,7 @@
     "chalk": "^2.4.2"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.11",
     "@types/node": "^11.13.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -33,7 +35,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.7.1",
     "prettier": "^1.16.4",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.4.3"
   }
 }
