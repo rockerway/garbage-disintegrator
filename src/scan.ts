@@ -6,19 +6,20 @@ export function getNonRepeatedTargets(
   content: string,
   specifiedContentRegexp: RegExp
 ) {
+  let input = content;
   const targets = [];
 
   while (true) {
-    const found = content.match(specifiedContentRegexp);
+    const found = input.match(specifiedContentRegexp);
 
     if (!found) {
       break;
     }
 
-    let matched = found[0];
+    const matched = found[0];
 
     targets.push(matched);
-    content = content.split(matched).join('');
+    input = input.split(matched).join('');
   }
 
   return targets;
