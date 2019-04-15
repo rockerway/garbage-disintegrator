@@ -21,11 +21,6 @@ program
     '-c --conjunction <conjunction>',
     'Use to connect words, phrases, or clauses'
   )
-  // Todo: Consider whether it is open
-  // .option(
-  //   '--regexOption <options>',
-  //   'You can modify these and several other aspects of default regular expression behavior by specifying regular expression options.'
-  // )
   .action(async (regexp, content) => {
     if (process.argv.length < 3) {
       program.help();
@@ -46,12 +41,14 @@ program
       process.exit(1);
     }
 
-    let targets;
+    let getTargetMethod;
     if (program.repeated) {
-      targets = scan.getTargets(text, new RegExp(regexp, 'g'));
+      getTargetMethod = scan.getTargets;
     } else {
-      targets = scan.getNonRepeatedTargets(text, new RegExp(regexp, 'm'));
+      getTargetMethod = scan.getNonRepeatedTargets;
     }
+
+    const targets = getTargetMethod(text, regexp);
 
     program.conjunction = program.conjunction || '';
     const result = targets.join(program.conjunction);
