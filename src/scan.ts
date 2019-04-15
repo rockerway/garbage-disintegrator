@@ -1,16 +1,17 @@
-export function getTargets(content: string, specifiedContentRegexp: RegExp) {
-  return content.match(specifiedContentRegexp);
+export function getTargets(content: string, specifiedContentRegexp: string) {
+  return content.match(new RegExp(specifiedContentRegexp, 'g'));
 }
 
 export function getNonRepeatedTargets(
   content: string,
-  specifiedContentRegexp: RegExp
+  specifiedContentRegexp: string
 ) {
   let input = content;
+  const regexp = new RegExp(specifiedContentRegexp, 'm');
   const targets = [];
 
   while (true) {
-    const found = input.match(specifiedContentRegexp);
+    const found = input.match(regexp);
 
     if (!found) {
       break;
