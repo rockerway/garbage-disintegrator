@@ -1,0 +1,20 @@
+language: node_js
+branches:
+  only:
+    - master
+node_js:
+  - node
+install:
+  - npm install
+script:
+  - npm run testWithCoverage
+deploy:
+  provider: npm
+  email: rockerway2@gmail.com
+  api_key:
+    secure: U3QuXdDVzp23VDpyfE2/N8YQg4jNWCSf0n/krKnU+KB4mXxve11fcD+cJYup6VMZtAtWVJ94ear/eOU1TFbDAD9Y/ESPoLHocMqC3Do6mlGoWaE4UNhaoLQrRc3RvgRpEYaZcX2YFcfwlHkdIHrkoevCLVSHk7S19dSiEs3EdKHfP578tNfuDsl9JeCX9E5j6vtcMfeD+a/KjVfuOtFICfrqYyUNUCkvWw+NXWXGM1xWmIXYEgM7fr6eJqMNtu6vohuVOn+8w1QCE+q/A+0XH+nv9zE08zIWxJx0pO+A9RqpcstVa+jU27pCfYvABUlo0OuY8/MKY4cQG+li7y9h8jkkQlzrtXYsjhDzJHSBOH0694udpCFy7j0OqTZ7/LjrBgu4+dexwyPBNtt47S2eOSLhRm/tfrA2xZK9rEGn3FCbjiqy6EVmvVEZwrNNmnq9kUHV/l4kbzahACaYPup32VNnku6HFU1I7L/R2klk1rGpdMe4R3T4TQyhkhFrX8Q2XZSNOk+mudF72OG81IxeszChM71JmU4A7uxoIbIggEZl58K7FjxloYaNOBhx7xR4lnGF0D6JNC1zk5VQyxH76TQeqcQX/zgNvT6iMnzCEAc/Xn4w4Ls3ShJJHy2tAfvSaVFm5Lm89hqvDv/VrZvbPvsp/ZoQjKGCvRbgA1aaUsw=
+  on:
+    branch: master
+notifications:
+  slack:
+    secure: R+58scV8ftTRUnVHWGdkZKQVlm1+sEBAO/j+5NYdA1bYdhcS3wO2y8RUwtnrETZtNPX2TydV2geGe7lCrbb0MZPsFXHsz2T8Kvo2m7AbzUudk177JWuPzDwBAxURQr5YAgU3UppgrYnvqcQgEO05Ec2vws6f2fRzPO/TzHaFKM/lPLmGEiFOaJgCiHf6wdjUsmsvYYhcHcZAXm6KOQOX22XDkDXT7HE333l5lFoQrACAOcpcwvBP19liBCHhK1ZhE3z+CVjEU4BMAqdlQSuTCMQNQIhwy7z7PzpiSRnPxwtBf2zW+gIoXbKjaoHZ8zCg3Ku3K4bgCLYvQ/tG6SvFbReNW6qbU7chbJOqiXjEi5HLhEHEH+S4lz2TQsvtVo1Mp/CMBpE17qBZ7t46suAB/HvRvEur5wxmZkWyCh4xgPcY2CgK4DBIg+Pp1c7ZOjE3Fcor1Bpl4wspb6Vzo7qIIWa39Mwa35dCL2RVaARE79xvzz1HtxzpjQkGJ2Hc39kel6PEVpX9WjmUB2KGEW8gy6plhptUtXAi1wkk447y89NtovRIUVehm7rQumLBmCtlhzDODVO15+kEO0jPIUDTevpdEq1Ks7HSztVYiJ+QC+YTLjfIXG6scOP22DAWevBIVVT0pzgSv3gO+ll3I30j4Xt24HEVJBaLaraWmPXQaa4=
