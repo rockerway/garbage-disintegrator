@@ -1,0 +1,7 @@
+src/
+tests/
+.travis.yml
+.prettierrc
+Dockerfile.dev
+dev
+jest.config.js
