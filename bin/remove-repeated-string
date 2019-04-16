@@ -32,7 +32,12 @@ program
       process.exit(1);
     }
 
-    const text = await getText(content);
+    let text;
+    try {
+      text = await getText(content);
+    } catch (e) {
+      return logger.error(e);
+    }
 
     if (typeof text !== 'string') {
       logger.error(
@@ -54,7 +59,11 @@ program
     const result = targets.join(program.conjunction);
 
     if (program.out) {
-      writeFile(program.out, result);
+      try {
+        writeFile(program.out, result);
+      } catch (e) {
+        return logger.error(e.message);
+      }
     } else {
       console.log(result);
     }
