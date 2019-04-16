@@ -1,6 +1,6 @@
 {
   "name": "garbage-disintegrator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "scan text file or string with Regex, generate a file without repeated regex's string.",
   "bin": {
     "rr": "bin/remove-repeated-string"
